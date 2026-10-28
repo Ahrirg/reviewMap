@@ -23,6 +23,9 @@ export const DB_PATH = process.env.DB_PATH
   ? path.resolve(process.env.DB_PATH)
   : path.join(DATA_DIR, 'app.db');
 
+/** Built frontend (npm run build). Served by Express when it exists. */
+export const CLIENT_DIST = path.join(ROOT_DIR, 'client', 'dist');
+
 export const UPLOADS_ROOT = path.join(ROOT_DIR, 'uploads');
 export const UPLOAD_DIRS = {
   image: path.join(UPLOADS_ROOT, 'images'),

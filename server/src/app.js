@@ -1,6 +1,9 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 import express from 'express';
 
-import { MAP_DEFAULTS, TRUST_PROXY, UPLOADS_ROOT } from './config.js';
+import { CLIENT_DIST, MAP_DEFAULTS, TRUST_PROXY, UPLOADS_ROOT } from './config.js';
 import { errorHandler, notFound } from './middleware/errors.js';
 import { attachUser } from './middleware/session.js';
 import markersRouter from './routes/markers.js';
@@ -64,8 +67,19 @@ export function createApp() {
   app.use('/api/markers', markersRouter);
   app.use('/api/reviews', reviewsRouter);
 
-  // Express 5 rejects a bare '*' path (path-to-regexp v8). A plain use() is the
-  // correct catch-all; a future SPA fallback would need '/{*splat}'.
+  // Unknown /api paths stay JSON 404s instead of falling through to the SPA.
+  app.use('/api', notFound);
+
+  // The built client, when present. Without it only the API is served (dev
+  // mode, where Vite serves the frontend).
+  if (fs.existsSync(path.join(CLIENT_DIST, 'index.html'))) {
+    app.use(express.static(CLIENT_DIST, { index: 'index.html' }));
+    // Express 5 rejects a bare '*' path (path-to-regexp v8).
+    app.get('/{*splat}', (req, res) => {
+      res.sendFile(path.join(CLIENT_DIST, 'index.html'));
+    });
+  }
+
   app.use(notFound);
   app.use(errorHandler);
 
