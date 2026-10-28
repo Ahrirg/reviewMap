@@ -68,7 +68,7 @@ export function LoginScreen() {
           </span>
           <div className="min-w-0">
             <h1 className="text-base font-semibold text-slate-900">
-              Kauno bendruomenės žemėlapis
+              Sandros vemimo žemėlapis
             </h1>
             <p className="text-sm text-slate-500">Prisijungimas</p>
           </div>
