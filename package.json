@@ -1,0 +1,25 @@
+{
+  "name": "reviewmap",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Interactive community review map of Kaunas, Lithuania",
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "dev": "concurrently -k -n server,client -c magenta,cyan \"npm -w server run dev\" \"npm -w client run dev\"",
+    "dev:server": "npm -w server run dev",
+    "dev:client": "npm -w client run dev",
+    "build": "npm -w client run build",
+    "preview": "npm -w client run preview",
+    "start": "npm -w server run start",
+    "seed": "node server/scripts/seed.js",
+    "db:reset": "node server/scripts/reset-db.js",
+    "uploads:gc": "node server/scripts/uploads-gc.js"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  },
+  "engines": {
+    "node": ">=22.12"
+  }
+}

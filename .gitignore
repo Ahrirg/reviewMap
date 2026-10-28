@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+npm-debug.log*
+
+# Accounts and their plain-text passwords (config.example.conf is the template)
+config.conf
+
+# HMAC key for session cookies, generated on first boot
+data/session.key
+
+# Runtime database (schema is created automatically on boot)
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# User uploaded media
+uploads/images/*
+uploads/videos/*
+!uploads/images/.gitkeep
+!uploads/videos/.gitkeep
+
+.env
+.env.local
